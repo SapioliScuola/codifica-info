@@ -9,7 +9,7 @@ https://en.cppreference.com/cpp/language/types
 
 
 PER COMPILARE
-g++ main.cpp -o somma
+g++ main.cpp -o main
 
 PER LANCIARE
 

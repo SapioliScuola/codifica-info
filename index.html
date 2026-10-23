@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida ed Esercizi di Codifica Dati per TPSI - Classe Terza</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- KaTeX for Math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        excel: '#107c41',
+                        paper: '#d97706'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-item-active {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            border-right: 4px solid #0284c7;
+            font-weight: 600;
+        }
+        pre code {
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <div class="bg-brand-600 text-white p-2 rounded-lg font-bold text-lg">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base md:text-lg leading-tight">Codifica Dati & Rappresentazione</h1>
+                    <p class="text-xs text-slate-400">TPSI - Classe Terza (Scuola Secondaria di II Grado)</p>
+                </div>
+            </div>
+            <div class="hidden sm:flex items-center space-x-3 text-xs md:text-sm">
+                <span class="bg-slate-800 px-3 py-1.5 rounded-full border border-slate-700 text-slate-300">
+                    <i class="fa-solid fa-book-open text-brand-500 mr-1.5"></i> 10 Moduli Didattici
+                </span>
+                <span class="bg-emerald-950 px-3 py-1.5 rounded-full border border-emerald-800 text-emerald-400">
+                    <i class="fa-solid fa-file-excel mr-1.5"></i> Calcolo Passo-Passo + Controprova
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex-1 flex max-w-7xl w-full mx-auto px-2 sm:px-6 lg:px-8 py-6 gap-6">
+
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-72 bg-white border-r border-slate-200 transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300 ease-in-out md:flex md:flex-col shrink-0 rounded-xl shadow-sm h-[calc(100vh-5rem)] md:sticky md:top-20 overflow-y-auto">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h2 class="font-bold text-slate-700 text-sm uppercase tracking-wider"><i class="fa-solid fa-list-ol mr-2 text-brand-600"></i> Indice Moduli</h2>
+                <button id="close-sidebar-btn" class="md:hidden text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <nav class="p-2 space-y-1 text-sm font-medium">
+                <a href="#m1" class="sidebar-link flex items-center px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors">
+                    <span class="w-6 text-center font-bold text-xs text-brand-600 mr-2">01</span> Conversione Binario / Decimale
+                </a>
+                <a href="#m2" class="sidebar-link flex items-center px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors">
+                    <span class="w-6 text-center font-bold text-xs text-brand-600 mr-2">02</span> Binario / Esadecimale
+                </a>
+                <a href="#m3" class="sidebar-link flex items-center px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors">
+                    <span class="w-6 text-center font-bold text-xs text-brand-600 mr-2">03</span> Modulo e Segno (MS)
+                </a>
+                <a href="#m4" class="sidebar-link flex items-center px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors">
+                    <span class="w-6 text-center font-bold text-xs text-brand-600 mr-2">04</span> Complemento a 2 (C2)
+                </a>
+                <a href="#m5" class="sidebar-link flex items-center px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors">
+                    <span class="w-6 text-center font-bold text-xs text-brand-600 mr-2">05</span> Eccesso a N (Biased)
+                </a>
+                <a href="#m6" class="sidebar-link flex items-center px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors">
+                    <span class="w-6 text-center font-bold text-xs text-brand-600 mr-2">06</span> IEEE 754 Floating Point
+                </a>
+                <a href="#m7" class="sidebar-link flex items-center px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors">
+                    <span class="w-6 text-center font-bold text-xs text-brand-600 mr-2">07</span> Codifica Testo: ASCII & Unicode
+                </a>
+                <a href="#m8" class="sidebar-link flex items-center px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors">
+                    <span class="w-6 text-center font-bold text-xs text-brand-600 mr-2">08</span> Codifica Testo: UTF-8, UTF-16
+                </a>
+                <a href="#m9" class="sidebar-link flex items-center px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors">
+                    <span class="w-6 text-center font-bold text-xs text-brand-600 mr-2">09</span> Immagini Raster & Bitmap (.bmp)
+                </a>
+                <a href="#m10" class="sidebar-link flex items-center px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors">
+                    <span class="w-6 text-center font-bold text-xs text-brand-600 mr-2">10</span> Audio, Video e Compressione
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 space-y-10 min-w-0">
+
+            <!-- Intro Banner -->
+            <section class="bg-gradient-to-r from-brand-900 via-brand-800 to-slate-900 text-white p-6 sm:p-8 rounded-2xl shadow-md relative overflow-hidden">
+                <div class="relative z-10 max-w-3xl">
+                    <span class="bg-brand-500/30 text-brand-200 border border-brand-400/30 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Metodologia Didattica TPSI</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mt-3 mb-2 text-white">Guida Interattiva ed Eserciziario</h2>
+                    <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
+                        In questa guida, per ogni argomento svolgerai la risoluzione manuale a passi su foglio ed applicherai il **metodo algoritmico matematico in Excel** (divisioni successive, potenze di 2, bit inversion, mascheramento) mediante formule native (`INT`, `RESTO`, `STRINGA.ESTRAI`, ecc.). Le funzioni native integrate (`DEC.BIN`, `BIN.A.DEC`, ecc.) vengono applicate unicamente come **controprova finale**!
+                    </p>
+                </div>
+            </section>
+
+            <!-- ================= MODULO 1 ================= -->
+            <section id="m1" class="scroll-mt-20 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="border-b border-slate-200 bg-slate-50 p-4 sm:p-6 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Modulo 01</span>
+                        <h2 class="text-xl font-bold text-slate-800">Conversione Binaria / Decimale e Viceversa</h2>
+                    </div>
+                    <div class="text-3xl text-brand-600"><i class="fa-solid fa-calculator"></i></div>
+                </div>
+
+                <div class="p-4 sm:p-6 space-y-8">
+                    <!-- 1. Spiegazione Teorica -->
+                    <div class="space-y-3">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-brand-600"></i> 1. Spiegazione Teorica
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Il sistema decimale è in base 10 ($0..9$), mentre quello binario è in base 2 ($0, 1$). 
+                            Per convertire da <strong>Decimale a Binario</strong> si utilizza l'algoritmo delle <em>divisioni successive per 2</em>, annotando i resti dal basso verso l'alto (dal bit meno significativo LSB al most significativo MSB).
+                            Per la conversione da <strong>Binario a Decimale</strong> si usa la <em>notazione posizionale del sistema pesato</em>:
+                            $$\text{Valore}_{10} = \sum_{i=0}^{N-1} b_i \cdot 2^i$$
+                        </p>
+                    </div>
+
+                    <!-- 2. Demo Interattiva -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 space-y-4">
+                        <h3 class="text-md font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-laptop-code text-brand-600"></i> 2. Demo Interattiva: Convertitore Dinamico
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Numero Decimale (0-255):</label>
+                                <input type="number" id="m1-input-dec" value="157" min="0" max="255" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Risultato Binario (8 Bit):</label>
+                                <div id="m1-output-bin" class="p-2.5 bg-slate-900 text-emerald-400 font-mono text-sm rounded-lg font-bold">10011101</div>
+                            </div>
+                        </div>
+                        <div id="m1-steps-demo" class="text-xs font-mono bg-white p-3 rounded-lg border border-slate-200 space-y-1 text-slate-700">
+                            <!-- JS inserisce passi -->
+                        </div>
+                    </div>
+
+                    <!-- 3. Esercizi (Carta & Excel) -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-ruler text-brand-600"></i> 3. Esercizi Guidati
+                        </h3>
+
+                        <!-- Carta -->
+                        <div class="border border-amber-200 bg-amber-50/50 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-amber-800 text-sm"><i class="fa-solid fa-file-lines mr-1.5"></i> Esercizio 1 (Su Carta) 📝</span>
+                                <span class="text-xs bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full font-semibold">Teorico/Pratico</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Converti il numero decimale <strong>$N = 213_{10}$</strong> in binario mediante divisioni successive. Successivamente riconverti il risultato ottenuto <strong>$11010101_2$</strong> in decimale mediante sviluppo polinomiale.
+                            </p>
+                            <button onclick="toggleSolution('sol-m1-carta')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Soluzione e Guida Passo-Passo
+                            </button>
+                            <div id="sol-m1-carta" class="hidden mt-4 pt-3 border-t border-amber-200 text-xs text-slate-800 space-y-2">
+                                <p class="font-bold">Passaggio 1: Divisioni successive per 2</p>
+                                <ul class="list-disc list-inside font-mono space-y-0.5 text-slate-700">
+                                    <li>213 / 2 = 106 con resto <strong>1</strong> (LSB - bit 0)</li>
+                                    <li>106 / 2 = 53 con resto <strong>0</strong></li>
+                                    <li>53 / 2 = 26 con resto <strong>1</strong></li>
+                                    <li>26 / 2 = 13 con resto <strong>0</strong></li>
+                                    <li>13 / 2 = 6 con resto <strong>1</strong></li>
+                                    <li>6 / 2 = 3 con resto <strong>0</strong></li>
+                                    <li>3 / 2 = 1 con resto <strong>1</strong></li>
+                                    <li>1 / 2 = 0 con resto <strong>1</strong> (MSB - bit 7)</li>
+                                </ul>
+                                <p class="font-semibold text-emerald-800 mt-2">Risultato leggendo i resti dal basso in alto: 11010101₂</p>
+                                <p class="font-bold mt-2">Passaggio 2: Riconversione in Decimale</p>
+                                <p class="font-mono">1·2⁷ + 1·2⁶ + 0·2⁵ + 1·2⁴ + 0·2³ + 1·2² + 0·2¹ + 1·2⁰ = 128 + 64 + 0 + 16 + 0 + 4 + 0 + 1 = 213₁₀</p>
+                            </div>
+                        </div>
+
+                        <!-- Excel -->
+                        <div class="border border-emerald-200 bg-emerald-50/40 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-emerald-900 text-sm"><i class="fa-solid fa-file-excel mr-1.5"></i> Esercizio 2 (Su Excel) 📊</span>
+                                <span class="text-xs bg-emerald-200 text-emerald-900 px-2.5 py-0.5 rounded-full font-semibold">Procedimento con Formule</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Crea una tabella Excel per convertire <strong>179</strong> in binario usando le funzioni matematiche di quoziente intero e resto. Ricostruisci poi la stringa. Utilizza la funzione native <code>DEC.BIN()</code> esclusivamente per la <strong>controprova finale</strong>.
+                            </p>
+                            <button onclick="toggleSolution('sol-m1-excel')" class="text-xs bg-excel hover:bg-emerald-800 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Guida Passo-Passo Excel
+                            </button>
+                            <div id="sol-m1-excel" class="hidden mt-4 pt-3 border-t border-emerald-200 text-xs text-slate-800 space-y-3">
+                                <p class="font-bold text-emerald-900">Struttura della tabella di divisione per Excel:</p>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left font-mono bg-white border border-slate-300 rounded text-[11px]">
+                                        <thead class="bg-slate-100 border-b border-slate-300">
+                                            <tr>
+                                                <th class="p-1.5 border-r">Cella</th>
+                                                <th class="p-1.5 border-r">Contenuto / Descrizione</th>
+                                                <th class="p-1.5 border-r">Formula Excel Passo-Passo</th>
+                                                <th class="p-1.5">Valore Calcolato</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="border-b"><td class="p-1.5 font-bold border-r">A2</td><td class="p-1.5 border-r">Valore Iniziale</td><td class="p-1.5 border-r"><code>179</code></td><td class="p-1.5">179</td></tr>
+                                            <tr class="border-b"><td class="p-1.5 font-bold border-r">B2</td><td class="p-1.5 border-r">Quoziente 1</td><td class="p-1.5 border-r"><code>=INT(A2/2)</code></td><td class="p-1.5">89</td></tr>
+                                            <tr class="border-b"><td class="p-1.5 font-bold border-r">C2</td><td class="p-1.5 border-r">Resto 1 (Bit 0 - LSB)</td><td class="p-1.5 border-r"><code>=RESTO(A2; 2)</code></td><td class="p-1.5">1</td></tr>
+                                            <tr class="border-b"><td class="p-1.5 font-bold border-r">B3</td><td class="p-1.5 border-r">Quoziente 2</td><td class="p-1.5 border-r"><code>=INT(B2/2)</code></td><td class="p-1.5">44</td></tr>
+                                            <tr class="border-b"><td class="p-1.5 font-bold border-r">C3</td><td class="p-1.5 border-r">Resto 2 (Bit 1)</td><td class="p-1.5 border-r"><code>=RESTO(B2; 2)</code></td><td class="p-1.5">1</td></tr>
+                                            <tr class="border-b bg-slate-50"><td class="p-1.5 font-bold border-r" colspan="4">... trascina le formule in basso per 8 passaggi totali ...</td></tr>
+                                            <tr class="border-b bg-emerald-100/50"><td class="p-1.5 font-bold border-r">E2</td><td class="p-1.5 border-r">Concatenazione Resti (dal basso in alto)</td><td class="p-1.5 border-r"><code>=CONCATENA(C9;C8;C7;C6;C5;C4;C3;C2)</code></td><td class="p-1.5 font-bold text-emerald-800">10110011</td></tr>
+                                            <tr class="bg-emerald-200/50"><td class="p-1.5 font-bold border-r">F2</td><td class="p-1.5 border-r"><strong>CONTROPROVA NATIVA</strong></td><td class="p-1.5 border-r"><code>=DEC.BIN(A2; 8)</code></td><td class="p-1.5 font-bold text-emerald-900">10110011 ✓</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p class="text-slate-600">Per la conversione opposta (Binario ➔ Decimale) inserisci i bit nelle celle <code>A2:H2</code> e la formula passo-passo <code>=SOMMA.PRODOTTO(A2:H2; {128\64\32\16\8\4\2\1})</code>. Fai la controprova con <code>=BIN.A.DEC(CONCATENA(A2:H2))</code>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= MODULO 2 ================= -->
+            <section id="m2" class="scroll-mt-20 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="border-b border-slate-200 bg-slate-50 p-4 sm:p-6 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Modulo 02</span>
+                        <h2 class="text-xl font-bold text-slate-800">Conversione Binaria / Esadecimale e Viceversa</h2>
+                    </div>
+                    <div class="text-3xl text-brand-600"><i class="fa-solid fa-hashtag"></i></div>
+                </div>
+
+                <div class="p-4 sm:p-6 space-y-8">
+                    <div class="space-y-3">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-brand-600"></i> 1. Spiegazione Teorica
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Poiché $16 = 2^4$, esiste un corrispondenza esatta di **1 cifra esadecimale (0-9, A-F) ogni 4 bit (Nibble)**.
+                            Per convertire da binario ad esadecimale si suddivide la stringa binaria in gruppi di 4 bit partendo da destra (LSB), aggiungendo eventuali zeri a sinistra, e si mappa ciascun nibble nel relativo carattere Hex ($10=A, 11=B, 12=C, 13=D, 14=E, 15=F$).
+                        </p>
+                    </div>
+
+                    <!-- Demo JS -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 space-y-4">
+                        <h3 class="text-md font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-laptop-code text-brand-600"></i> 2. Demo Interattiva: Nibble Viewer
+                        </h3>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Inserisci stringa Binaria a 8/16 bit:</label>
+                            <input type="text" id="m2-input-bin" value="11011010" maxlength="16" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm font-mono focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                        </div>
+                        <div id="m2-nibble-display" class="flex flex-wrap gap-3">
+                            <!-- Popolato da JS -->
+                        </div>
+                    </div>
+
+                    <!-- Esercizi -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-ruler text-brand-600"></i> 3. Esercizi Guidati
+                        </h3>
+
+                        <div class="border border-amber-200 bg-amber-50/50 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-amber-800 text-sm"><i class="fa-solid fa-file-lines mr-1.5"></i> Esercizio 1 (Su Carta) 📝</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Converti la stringa binaria a 8 bit <strong>$10111110_2$</strong> in esadecimale. Successivamente riconverti il valore esadecimale <strong>$4F_{16}$</strong> in binario.
+                            </p>
+                            <button onclick="toggleSolution('sol-m2-carta')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Soluzione e Guida Passo-Passo
+                            </button>
+                            <div id="sol-m2-carta" class="hidden mt-4 pt-3 border-t border-amber-200 text-xs text-slate-800 space-y-2">
+                                <p class="font-bold">Parte 1: 10111110₂ ➔ Hex</p>
+                                <p class="font-mono">1. Separazione in nibble: [1011] [1110]</p>
+                                <p class="font-mono">2. Calcolo nibble 1 (1011): 8+0+2+1 = 11 ➔ B₁₆</p>
+                                <p class="font-mono">3. Calcolo nibble 2 (1110): 8+4+2+0 = 14 ➔ E₁₆</p>
+                                <p class="font-semibold text-emerald-800">Risultato: BE₁₆</p>
+                                <p class="font-bold mt-2">Parte 2: 4F₁₆ ➔ Binario</p>
+                                <p class="font-mono">Cifra 4 = 0100₂ | Cifra F (15) = 1111₂ ➔ Risultato: 01001111₂</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-emerald-200 bg-emerald-50/40 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-emerald-900 text-sm"><i class="fa-solid fa-file-excel mr-1.5"></i> Esercizio 2 (Su Excel) 📊</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Inserisci in <code>A2</code> la stringa binaria <code>11010111</code>. Estrai i due nibble con la funzione <code>STRINGA.ESTRAI()</code>, calcola il valore decimale di ciascun nibble con potenze di 2 e convertilo in carattere Hex usando <code>CODICE.CARATT()</code> o <code>SE()</code>. Esegui la controprova con <code>BIN.A.HEX()</code>.
+                            </p>
+                            <button onclick="toggleSolution('sol-m2-excel')" class="text-xs bg-excel hover:bg-emerald-800 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Guida Passo-Passo Excel
+                            </button>
+                            <div id="sol-m2-excel" class="hidden mt-4 pt-3 border-t border-emerald-200 text-xs text-slate-800 space-y-2 font-mono">
+                                <p class="font-bold text-emerald-900 font-sans">Passi di calcolo per Excel:</p>
+                                <p>1. In <code>B2</code> (Nibble Alto, 4 bit): <code>=STRINGA.ESTRAI(A2; 1; 4)</code> ➔ "1101"</p>
+                                <p>2. In <code>C2</code> (Nibble Basso, 4 bit): <code>=STRINGA.ESTRAI(A2; 5; 4)</code> ➔ "0111"</p>
+                                <p>3. In <code>D2</code> (Valore Decimale Nibble Alto): <code>=STRINGA.ESTRAI(B2;1;1)*8 + STRINGA.ESTRAI(B2;2;1)*4 + STRINGA.ESTRAI(B2;3;1)*2 + STRINGA.ESTRAI(B2;4;1)*1</code> ➔ 13</p>
+                                <p>4. In <code>E2</code> (Conversione Hex Nibble Alto): <code>=SE(D2<10; TESTO(D2;"0"); CODICE.CARATT(55+D2))</code> ➔ "D"</p>
+                                <p>5. Ripeti la logica per il Nibble Basso in <code>F2</code> ➔ "7"</p>
+                                <p>6. In <code>G2</code> (Risultato Passo-Passo): <code>=CONCATENA(E2; F2)</code> ➔ "D7"</p>
+                                <p class="text-emerald-800 font-bold font-sans mt-2">7. CONTROPROVA NATIVA in H2: <code>=BIN.A.HEX(A2)</code> ➔ "D7" ✓</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= MODULO 3 ================= -->
+            <section id="m3" class="scroll-mt-20 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="border-b border-slate-200 bg-slate-50 p-4 sm:p-6 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Modulo 03</span>
+                        <h2 class="text-xl font-bold text-slate-800">Rappresentazione in Modulo e Segno (MS)</h2>
+                    </div>
+                    <div class="text-3xl text-brand-600"><i class="fa-solid fa-plus-minus"></i></div>
+                </div>
+
+                <div class="p-4 sm:p-6 space-y-8">
+                    <div class="space-y-3">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-brand-600"></i> 1. Spiegazione Teorica
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Nella codifica in **Modulo e Segno a $N$ bit**, il bit più significativo (MSB, posizione $N-1$) indica il segno: **0 per il positivo (+)** e **1 per il negativo (-)**.
+                            I restanti $N-1$ bit codificano il valore assoluto (modulo) del numero.
+                            <br><em>Svantaggi:</em> Presenza del doppio zero ($+0 = 0000_2$ e $-0 = 1000_2$) e complessità dei circuiti sommatori.
+                        </p>
+                    </div>
+
+                    <!-- Demo JS -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 space-y-4">
+                        <h3 class="text-md font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-laptop-code text-brand-600"></i> 2. Demo Interattiva: MS Configurator
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Numero Decimale (-127 a +127):</label>
+                                <input type="number" id="m3-input-num" value="-45" min="-127" max="127" class="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                            </div>
+                            <div class="bg-white p-3 border border-slate-200 rounded-lg">
+                                <span class="text-xs text-slate-500 block">Rappresentazione MS 8 Bit:</span>
+                                <div class="flex items-center gap-2 mt-1 font-mono text-base">
+                                    <span id="m3-bit-sign" class="bg-red-100 text-red-700 px-2 py-1 rounded font-bold" title="Bit di Segno">1</span>
+                                    <span id="m3-bit-mod" class="bg-blue-100 text-blue-700 px-2 py-1 rounded font-bold" title="Modulo (7 bit)">0101101</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Esercizi -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-ruler text-brand-600"></i> 3. Esercizi Guidati
+                        </h3>
+
+                        <div class="border border-amber-200 bg-amber-50/50 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-amber-800 text-sm"><i class="fa-solid fa-file-lines mr-1.5"></i> Esercizio 1 (Su Carta) 📝</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Rappresenta i numeri $+38_{10}$ e $-38_{10}$ in Modulo e Segno a 8 bit. Determina poi il range rappresentabile su 8 bit.
+                            </p>
+                            <button onclick="toggleSolution('sol-m3-carta')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Soluzione e Guida Passo-Passo
+                            </button>
+                            <div id="sol-m3-carta" class="hidden mt-4 pt-3 border-t border-amber-200 text-xs text-slate-800 space-y-2">
+                                <p>1. Conversione del modulo 38 in binario su 7 bit: $38_{10} = 0100110_2$</p>
+                                <p>2. Per $+38$: Bit di segno MSB = <code>0</code> ➔ <strong>00100110₂</strong></p>
+                                <p>3. Per $-38$: Bit di segno MSB = <code>1</code> ➔ <strong>10100110₂</strong></p>
+                                <p>4. Range a 8 bit: da $-(2^{8-1}-1)$ a $+(2^{8-1}-1)$ cioè <strong>da -127 a +127</strong>.</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-emerald-200 bg-emerald-50/40 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-emerald-900 text-sm"><i class="fa-solid fa-file-excel mr-1.5"></i> Esercizio 2 (Su Excel) 📊</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Inserisci in <code>A2</code> un valore intero relativo (es. <code>-53</code>). Con le formule passo-passo calcola il bit di segno tramite <code>SE()</code> e il modulo binario a 7 bit mediante divisioni successive o <code>DEC.BIN(ASS(A2); 7)</code>.
+                            </p>
+                            <button onclick="toggleSolution('sol-m3-excel')" class="text-xs bg-excel hover:bg-emerald-800 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Guida Passo-Passo Excel
+                            </button>
+                            <div id="sol-m3-excel" class="hidden mt-4 pt-3 border-t border-emerald-200 text-xs text-slate-800 space-y-2 font-mono">
+                                <p>1. Cella <code>B2</code> (Bit di Segno): <code>=SE(A2>=0; "0"; "1")</code></p>
+                                <p>2. Cella <code>C2</code> (Modulo Assoluto): <code>=ASS(A2)</code> ➔ 53</p>
+                                <p>3. Cella <code>D2</code> (Modulo Binario a 7 bit): <code>=DEC.BIN(C2; 7)</code> ➔ "0110101"</p>
+                                <p>4. Cella <code>E2</code> (Rappresentazione MS 8 bit finale): <code>=CONCATENA(B2; D2)</code> ➔ "10110101"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= MODULO 4 ================= -->
+            <section id="m4" class="scroll-mt-20 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="border-b border-slate-200 bg-slate-50 p-4 sm:p-6 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Modulo 04</span>
+                        <h2 class="text-xl font-bold text-slate-800">Complemento a 2 (C2)</h2>
+                    </div>
+                    <div class="text-3xl text-brand-600"><i class="fa-solid fa-arrows-rotate"></i></div>
+                </div>
+
+                <div class="p-4 sm:p-6 space-y-8">
+                    <div class="space-y-3">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-brand-600"></i> 1. Spiegazione Teorica
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            La codifica in **Complemento a 2 (C2)** è lo standard utilizzato nei microprocessori per rappresentare i numeri interi con segno.
+                            Per ottenere l'opposto di un numero in C2 si applica l'algoritmo:
+                            <strong>1. Inverti tutti i bit (Complemento a 1 / NOT bit a bit)</strong> ➔ <strong>2. Aggiungi 1 al LSB</strong>.
+                            <br>In C2 esiste un unico zero ($00000000_2$) e il peso del bit MSB è negativo ($-2^{N-1}$).
+                        </p>
+                    </div>
+
+                    <!-- Demo JS -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 space-y-4">
+                        <h3 class="text-md font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-laptop-code text-brand-600"></i> 2. Demo Interattiva: Generatore Algoritmo C2
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <input type="number" id="m4-input-val" value="-25" min="-128" max="127" class="p-2 border rounded font-mono text-sm">
+                            <div class="col-span-2 bg-white p-3 rounded border font-mono text-xs space-y-1" id="m4-c2-output">
+                                <!-- Popolato da JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Esercizi -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-ruler text-brand-600"></i> 3. Esercizi Guidati
+                        </h3>
+
+                        <div class="border border-amber-200 bg-amber-50/50 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-amber-800 text-sm"><i class="fa-solid fa-file-lines mr-1.5"></i> Esercizio 1 (Su Carta) 📝</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Converti il numero decimale <strong>$-43_{10}$</strong> in complemento a 2 su 8 bit seguendo l'algoritmo passo-passo. Riconverti poi il numero C2 <code>11010100</code> in decimale usandone i pesi.
+                            </p>
+                            <button onclick="toggleSolution('sol-m4-carta')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Soluzione e Guida Passo-Passo
+                            </button>
+                            <div id="sol-m4-carta" class="hidden mt-4 pt-3 border-t border-amber-200 text-xs text-slate-800 space-y-2">
+                                <p class="font-bold">Passo 1: Conversione di +43 su 8 bit ➔ 00101011₂</p>
+                                <p class="font-bold">Passo 2: Inversione bit (Complemento a 1) ➔ 11010100₂</p>
+                                <p class="font-bold">Passo 3: Aggiungi 1 ➔ 11010100 + 1 = 11010101₂</p>
+                                <p class="font-semibold text-emerald-800">Risultato -43 in C2: 11010101₂</p>
+                                <p class="font-bold mt-2">Riconversione di 11010100₂ con pesi:</p>
+                                <p class="font-mono">-1·2⁷ + 1·2⁶ + 0·2⁵ + 1·2⁴ + 0·2³ + 1·2² + 0·2¹ + 0·2⁰ = -128 + 64 + 0 + 16 + 0 + 4 + 0 + 0 = -44₁₀</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-emerald-200 bg-emerald-50/40 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-emerald-900 text-sm"><i class="fa-solid fa-file-excel mr-1.5"></i> Esercizio 2 (Su Excel) 📊</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Inserisci in <code>A1:H1</code> i bit del valore positivo <code>00101011</code> (+43). Implementa in riga 2 l'inversione logica <code>=1-A1</code> e in riga 3 la somma binaria con riporto per aggiungere 1. Effettua la controprova sul valore negativo $X$ mediante la formula pesata $X = -128 \cdot b_7 + \sum_{i=0}^6 b_i \cdot 2^i$.
+                            </p>
+                            <button onclick="toggleSolution('sol-m4-excel')" class="text-xs bg-excel hover:bg-emerald-800 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Guida Passo-Passo Excel
+                            </button>
+                            <div id="sol-m4-excel" class="hidden mt-4 pt-3 border-t border-emerald-200 text-xs text-slate-800 space-y-2 font-mono">
+                                <p>1. Riga 1 (Bit del positivo +43): <code>0 | 0 | 1 | 0 | 1 | 0 | 1 | 1</code> nelle celle <code>A1:H1</code></p>
+                                <p>2. Riga 2 (Inversione Bit =1-X): Nelle celle <code>A2:H2</code> inserisci la formula <code>=1-A1</code> ... <code>=1-H1</code> (Risultato: 11010100)</p>
+                                <p>3. Riga 3 (Addizione di +1):</p>
+                                <ul class="list-disc list-inside pl-2 font-sans text-xs">
+                                    <li>H3 (LSB): <code>=RESTO(H2+1; 2)</code> | Riporto H4: <code>=INT((H2+1)/2)</code></li>
+                                    <li>G3: <code>=RESTO(G2+H4; 2)</code> | Riporto G4: <code>=INT((G2+H4)/2)</code> (prosegui fino ad A3)</li>
+                                </ul>
+                                <p>4. Cella <code>I3</code> (Stringa C2): <code>=CONCATENA(A3;B3;C3;D3;E3;F3;G3;H3)</code> ➔ "11010101"</p>
+                                <p class="text-emerald-800 font-bold font-sans mt-2">5. CONTROPROVA PESATA in J3: <code>=-128*A3 + 64*B3 + 32*C3 + 16*D3 + 8*E3 + 4*F3 + 2*G3 + 1*H3</code> ➔ -43 ✓</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= MODULO 5 ================= -->
+            <section id="m5" class="scroll-mt-20 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="border-b border-slate-200 bg-slate-50 p-4 sm:p-6 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Modulo 05</span>
+                        <h2 class="text-xl font-bold text-slate-800">Rappresentazione in Eccesso a N (Biased Representation)</h2>
+                    </div>
+                    <div class="text-3xl text-brand-600"><i class="fa-solid fa-scale-balanced"></i></div>
+                </div>
+
+                <div class="p-4 sm:p-6 space-y-8">
+                    <div class="space-y-3">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-brand-600"></i> 1. Spiegazione Teorica
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            La rappresentazione in **Eccesso K (o Biased)** trasla tutti i valori numerici sommando un bias (scostamento costante $K$).
+                            Formula di codifica:
+                            $$E = X + K$$
+                            Dove $X$ è il numero con segno e $E$ è l'esponente traslato non negativo da convertire poi in binario puro. Per un sistema ad $N$ bit, di norma il bias vale $K = 2^{N-1} - 1$ (es. per 8 bit $K=127$).
+                        </p>
+                    </div>
+
+                    <!-- Demo JS -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 space-y-4">
+                        <h3 class="text-md font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-laptop-code text-brand-600"></i> 2. Demo Interattiva: Calcolatore Bias
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Numero $X$:</label>
+                                <input type="number" id="m5-x" value="-15" class="w-full p-2 border rounded font-mono text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Bias $K$ (es. 127):</label>
+                                <input type="number" id="m5-k" value="127" class="w-full p-2 border rounded font-mono text-sm">
+                            </div>
+                            <div class="bg-white p-2.5 rounded border">
+                                <span class="text-xs text-slate-500 block">Esempio $E = X + K$:</span>
+                                <span id="m5-res" class="font-bold text-brand-600 font-mono text-sm">112 ➔ 01110000₂</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Esercizi -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-ruler text-brand-600"></i> 3. Esercizi Guidati
+                        </h3>
+
+                        <div class="border border-amber-200 bg-amber-50/50 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-amber-800 text-sm"><i class="fa-solid fa-file-lines mr-1.5"></i> Esercizio 1 (Su Carta) 📝</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Codifica i numeri decimale $X_1 = +18$ e $X_2 = -18$ in Eccesso 127 su 8 bit.
+                            </p>
+                            <button onclick="toggleSolution('sol-m5-carta')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Soluzione e Guida Passo-Passo
+                            </button>
+                            <div id="sol-m5-carta" class="hidden mt-4 pt-3 border-t border-amber-200 text-xs text-slate-800 space-y-2">
+                                <p>1. Per $+18$: $E_1 = 18 + 127 = 145_{10}$. Convertendo 145 in binario 8 bit: $145 / 2 \dots \rightarrow$ <strong>10010001₂</strong>.</p>
+                                <p>2. Per $-18$: $E_2 = -18 + 127 = 109_{10}$. Convertendo 109 in binario 8 bit: $109 / 2 \dots \rightarrow$ <strong>01101101₂</strong>.</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-emerald-200 bg-emerald-50/40 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-emerald-900 text-sm"><i class="fa-solid fa-file-excel mr-1.5"></i> Esercizio 2 (Su Excel) 📊</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Inserisci il valore $X = -42$ in <code>A2</code> e il Bias $K = 127$ in <code>B2</code>. Calcola $E = A2 + B2$ in <code>C2</code> e convertilo passo-passo in binario mediante le divisioni successive in colonna. Effettua la controprova finale con <code>DEC.BIN(C2; 8)</code>.
+                            </p>
+                            <button onclick="toggleSolution('sol-m5-excel')" class="text-xs bg-excel hover:bg-emerald-800 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Guida Passo-Passo Excel
+                            </button>
+                            <div id="sol-m5-excel" class="hidden mt-4 pt-3 border-t border-emerald-200 text-xs text-slate-800 space-y-2 font-mono">
+                                <p>1. Cella <code>C2</code> (Calcolo Esponente Traslato): <code>=A2 + B2</code> (Risultato: -42 + 127 = 85)</p>
+                                <p>2. Tabella di divisione per 85 nelle celle <code>D2:E9</code>:</p>
+                                <p class="pl-4">Divisione 1: Quoziente <code>=INT(C2/2)</code> (42), Resto <code>=RESTO(C2;2)</code> (1)</p>
+                                <p class="pl-4">Divisione 2: Quoziente <code>=INT(D2/2)</code> (21), Resto <code>=RESTO(D2;2)</code> (0) ... e così via fino a 0.</p>
+                                <p>3. Cella <code>F2</code> (Stringa Binaria): <code>=CONCATENA(E9;E8;E7;E6;E5;E4;E3;E2)</code> ➔ "01010101"</p>
+                                <p class="text-emerald-800 font-bold font-sans mt-2">4. CONTROPROVA NATIVA in G2: <code>=DEC.BIN(C2; 8)</code> ➔ "01010101" ✓</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= MODULO 6 ================= -->
+            <section id="m6" class="scroll-mt-20 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="border-b border-slate-200 bg-slate-50 p-4 sm:p-6 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Modulo 06</span>
+                        <h2 class="text-xl font-bold text-slate-800">Standard IEEE 754 (Singola e Doppia Precisione)</h2>
+                    </div>
+                    <div class="text-3xl text-brand-600"><i class="fa-solid fa-sliders"></i></div>
+                </div>
+
+                <div class="p-4 sm:p-6 space-y-8">
+                    <div class="space-y-3">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-brand-600"></i> 1. Spiegazione Teorica
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Lo standard **IEEE 754 Precisione Singola (32 bit)** suddivide la parola binaria in 3 campi:
+                        </p>
+                        <div class="grid grid-cols-3 gap-2 font-mono text-center text-xs my-2">
+                            <div class="bg-red-100 border border-red-300 p-2 rounded">Segno (S)<br><strong>1 Bit</strong></div>
+                            <div class="bg-blue-100 border border-blue-300 p-2 rounded">Esponente Traslato (E)<br><strong>8 Bit (Bias 127)</strong></div>
+                            <div class="bg-emerald-100 border border-emerald-300 p-2 rounded">Mantissa / Frazione (M)<br><strong>23 Bit</strong></div>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Il valore finale ricostruito è:
+                            $$V = (-1)^S \cdot (1 + M) \cdot 2^{E - 127}$$
+                        </p>
+                    </div>
+
+                    <!-- Demo JS -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 space-y-4">
+                        <h3 class="text-md font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-laptop-code text-brand-600"></i> 2. Demo Interattiva: Scompositore Bit IEEE 754
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Numero Reale in Virgola Mobile:</label>
+                                <input type="number" step="any" id="m6-input-float" value="-12.375" class="w-full p-2.5 border rounded-lg text-sm font-mono">
+                            </div>
+                            <div id="m6-ieee-breakdown" class="bg-slate-900 text-white p-3 rounded-lg font-mono text-xs space-y-1">
+                                <!-- JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Esercizi -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-ruler text-brand-600"></i> 3. Esercizi Guidati
+                        </h3>
+
+                        <div class="border border-amber-200 bg-amber-50/50 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-amber-800 text-sm"><i class="fa-solid fa-file-lines mr-1.5"></i> Esercizio 1 (Su Carta) 📝</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Converti il numero reale <strong>$-26.625_{10}$</strong> nello standard IEEE 754 a 32 bit.
+                            </p>
+                            <button onclick="toggleSolution('sol-m6-carta')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Soluzione e Guida Passo-Passo
+                            </button>
+                            <div id="sol-m6-carta" class="hidden mt-4 pt-3 border-t border-amber-200 text-xs text-slate-800 space-y-2">
+                                <p>1. Segno: Numero negativo ➔ <strong>S = 1</strong>.</p>
+                                <p>2. Parte intera 26 in binario = <code>11010₂</code>. Parte frazionaria 0.625 x 2 = 1.25 (1), 0.25 x 2 = 0.5 (0), 0.5 x 2 = 1.0 (1) ➔ <code>.101₂</code>.</p>
+                                <p>3. Numero in binario puro: $11010.101_2 = 1.1010101_2 \cdot 2^4$.</p>
+                                <p>4. Esponente $e = 4$. Esponente polarizzato $E = 4 + 127 = 131_{10} = 10000011_2$.</p>
+                                <p>5. Mantissa (normalizzata senza l'1 implicito): <code>10101010000000000000000</code> (23 bit).</p>
+                                <p class="font-semibold text-emerald-800">Risultato IEEE 754: 1 | 10000011 | 10101010000000000000000</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-emerald-200 bg-emerald-50/40 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-emerald-900 text-sm"><i class="fa-solid fa-file-excel mr-1.5"></i> Esercizio 2 (Su Excel) 📊</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Ricostruisci il valore decimale a partire dalle componenti IEEE 754 isolate nelle celle: Segno $S$ in <code>A2</code> (1 bit), Esponente $E$ in binario 8 bit in <code>B2</code> e Mantissa $M$ in <code>C2</code>. Utilizza la formula matematica passo-passo $(-1)^S \cdot (1 + \text{Mantissa}) \cdot 2^{(E - 127)}$.
+                            </p>
+                            <button onclick="toggleSolution('sol-m6-excel')" class="text-xs bg-excel hover:bg-emerald-800 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Guida Passo-Passo Excel
+                            </button>
+                            <div id="sol-m6-excel" class="hidden mt-4 pt-3 border-t border-emerald-200 text-xs text-slate-800 space-y-2 font-mono">
+                                <p>1. In <code>A2</code>: Segno <code>1</code> | In <code>B2</code>: <code>10000011</code> | In <code>C2</code>: <code>10101010000000000000000</code></p>
+                                <p>2. Cella <code>D2</code> (Valore Esponente Decimale): <code>=BIN.A.DEC(B2)</code> ➔ 131</p>
+                                <p>3. Cella <code>E2</code> (Calcolo Mantissa frazionaria passo-passo):</p>
+                                <p class="pl-4"><code>=STRINGA.ESTRAI(C2;1;1)*(2^-1) + STRINGA.ESTRAI(C2;2;1)*(2^-2) + STRINGA.ESTRAI(C2;3;1)*(2^-3) + STRINGA.ESTRAI(C2;4;1)*(2^-4) + ...</code></p>
+                                <p>4. Cella <code>F2</code> (Ricostruzione finale del valore reale):</p>
+                                <p class="pl-4 font-bold text-emerald-900"><code>=(-1)^A2 * (1 + E2) * (2^(D2 - 127))</code> ➔ -26.625 ✓</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= MODULO 7 ================= -->
+            <section id="m7" class="scroll-mt-20 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="border-b border-slate-200 bg-slate-50 p-4 sm:p-6 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Modulo 07</span>
+                        <h2 class="text-xl font-bold text-slate-800">Codifica Testo: ASCII e Unicode</h2>
+                    </div>
+                    <div class="text-3xl text-brand-600"><i class="fa-solid fa-[#0284c7] fa-font"></i></div>
+                </div>
+
+                <div class="p-4 sm:p-6 space-y-8">
+                    <div class="space-y-3">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-brand-600"></i> 1. Spiegazione Teorica
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            La codifica **ASCII Standard** impiega 7 bit ($128$ caratteri), estesa poi a 8 bit (ASCII Esteso, $256$ caratteri) per includere lettere accentate.
+                            Per supportare tutte le lingue del mondo, il consorzio **Unicode** assegna a ogni carattere un punto di codice univoco denominato <em>Code Point</em> espresso nella forma `U+XXXX` in esadecimale.
+                        </p>
+                    </div>
+
+                    <!-- Demo JS -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 space-y-4">
+                        <h3 class="text-md font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-laptop-code text-brand-600"></i> 2. Demo Interattiva: ASCII/Hex Text Converter
+                        </h3>
+                        <div>
+                            <input type="text" id="m7-input-text" value="TPSI 2026!" class="w-full p-2.5 border rounded-lg text-sm font-mono">
+                        </div>
+                        <div id="m7-ascii-table" class="overflow-x-auto">
+                            <!-- JS -->
+                        </div>
+                    </div>
+
+                    <!-- Esercizi -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-ruler text-brand-600"></i> 3. Esercizi Guidati
+                        </h3>
+
+                        <div class="border border-amber-200 bg-amber-50/50 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-amber-800 text-sm"><i class="fa-solid fa-file-lines mr-1.5"></i> Esercizio 1 (Su Carta) 📝</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Codifica la parola <strong>"Cia"</strong> nei relativi codici ASCII decimali ed esadecimali.
+                            </p>
+                            <button onclick="toggleSolution('sol-m7-carta')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Soluzione e Guida Passo-Passo
+                            </button>
+                            <div id="sol-m7-carta" class="hidden mt-4 pt-3 border-t border-amber-200 text-xs text-slate-800 space-y-2 font-mono">
+                                <p>'C' ➔ Decimale: 67, Esadecimale: 43₁₆, Binario: 01000011₂</p>
+                                <p>'i' ➔ Decimale: 105, Esadecimale: 69₁₆, Binario: 01101001₂</p>
+                                <p>'a' ➔ Decimale: 97, Esadecimale: 61₁₆, Binario: 01100001₂</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-emerald-200 bg-emerald-50/40 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-emerald-900 text-sm"><i class="fa-solid fa-file-excel mr-1.5"></i> Esercizio 2 (Su Excel) 📊</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Inserisci in <code>A2</code> la parola <code>"TPSI"</code>. Estrai ogni singolo carattere con <code>STRINGA.ESTRAI()</code>, trova il codice ASCII decimale con <code>CODICE()</code> e convertilo manualmente in binario a 8 bit tramite divisioni successive per 2. Effettua la controprova con <code>DEC.BIN()</code>.
+                            </p>
+                            <button onclick="toggleSolution('sol-m7-excel')" class="text-xs bg-excel hover:bg-emerald-800 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Guida Passo-Passo Excel
+                            </button>
+                            <div id="sol-m7-excel" class="hidden mt-4 pt-3 border-t border-emerald-200 text-xs text-slate-800 space-y-2 font-mono">
+                                <p>1. Cella <code>B2</code> (Primo Carattere): <code>=STRINGA.ESTRAI(A2; 1; 1)</code> ➔ "T"</p>
+                                <p>2. Cella <code>C2</code> (Codice ASCII Decimale): <code>=CODICE(B2)</code> ➔ 84</p>
+                                <p>3. Tabella di divisione per 84 per ottenerne i bit dal resto <code>=RESTO(...)</code> ➔ 01010100</p>
+                                <p class="text-emerald-800 font-bold font-sans mt-2">4. CONTROPROVA NATIVA in D2: <code>=DEC.BIN(C2; 8)</code> ➔ "01010100" ✓</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= MODULO 8 ================= -->
+            <section id="m8" class="scroll-mt-20 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="border-b border-slate-200 bg-slate-50 p-4 sm:p-6 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Modulo 08</span>
+                        <h2 class="text-xl font-bold text-slate-800">Codifica Testo: UTF-8, UTF-16, UTF-32</h2>
+                    </div>
+                    <div class="text-3xl text-brand-600"><i class="fa-solid fa-code"></i></div>
+                </div>
+
+                <div class="p-4 sm:p-6 space-y-8">
+                    <div class="space-y-3">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-brand-600"></i> 1. Spiegazione Teorica
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            <strong>UTF-8</strong> è una codifica a lunghezza variabile (da 1 a 4 Byte).
+                            I caratteri ASCII standard (0-127) occupano 1 Byte (`0xxxxxxx`).
+                            Per Code Point Unicode compresi tra `U+0080` e `U+07FF` (come le lettere accentate italiane `à`, `è`, `ò`), UTF-8 impiega **2 Byte** secondo lo schema fisso:
+                            <br><code>Byte 1: 110xxxxx | Byte 2: 10xxxxxx</code>
+                        </p>
+                    </div>
+
+                    <!-- Demo JS -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 space-y-4">
+                        <h3 class="text-md font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-laptop-code text-brand-600"></i> 2. Demo Interattiva: UTF-8 Byte Encoder
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Inserisci Carattere Unicode (es. 'à'):</label>
+                                <input type="text" id="m8-char" value="à" maxlength="2" class="w-full p-2.5 border rounded-lg text-center text-xl font-bold">
+                            </div>
+                            <div id="m8-utf8-bytes" class="bg-slate-900 text-amber-400 p-3 rounded-lg font-mono text-xs space-y-1">
+                                <!-- JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Esercizi -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-ruler text-brand-600"></i> 3. Esercizi Guidati
+                        </h3>
+
+                        <div class="border border-amber-200 bg-amber-50/50 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-amber-800 text-sm"><i class="fa-solid fa-file-lines mr-1.5"></i> Esercizio 1 (Su Carta) 📝</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Calcola i due byte della codifica UTF-8 per la lettera accentata <strong>'à'</strong> (Code Point Unicode $U+00E0 = 224_{10}$).
+                            </p>
+                            <button onclick="toggleSolution('sol-m8-carta')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Soluzione e Guida Passo-Passo
+                            </button>
+                            <div id="sol-m8-carta" class="hidden mt-4 pt-3 border-t border-amber-200 text-xs text-slate-800 space-y-2">
+                                <p>1. Converti 224 in binario su 11 bit: $224_{10} = 00011100000_2$.</p>
+                                <p>2. Suddividi negli spazi dello schema 2-Byte UTF-8 <code>110x xxxx | 10xx xxxx</code>:</p>
+                                <p class="font-mono pl-4">Primi 5 bit: 00011 ➔ Byte 1: 11000011 (C3₁₆)</p>
+                                <p class="font-mono pl-4">Ultimi 6 bit: 100000 ➔ Byte 2: 10100000 (A0₁₆)</p>
+                                <p class="font-semibold text-emerald-800">Risultato UTF-8 per 'à': C3 A0</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-emerald-200 bg-emerald-50/40 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-emerald-900 text-sm"><i class="fa-solid fa-file-excel mr-1.5"></i> Esercizio 2 (Su Excel) 📊</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Inserisci in <code>A2</code> il codice decimale <code>224</code> ('à'). Calcola passo-passo la suddivisione dei bit dei 2 byte UTF-8 usando <code>INT()</code> e <code>RESTO()</code> per estrarre i primi 5 bit e gli ultimi 6 bit.
+                            </p>
+                            <button onclick="toggleSolution('sol-m8-excel')" class="text-xs bg-excel hover:bg-emerald-800 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Guida Passo-Passo Excel
+                            </button>
+                            <div id="sol-m8-excel" class="hidden mt-4 pt-3 border-t border-emerald-200 text-xs text-slate-800 space-y-2 font-mono">
+                                <p>1. In <code>B2</code> (Ultimi 6 bit per Byte 2): <code>=RESTO(A2; 64)</code> ➔ 32 (binario 100000)</p>
+                                <p>2. In <code>C2</code> (Primi 5 bit per Byte 1): <code>=INT(A2 / 64)</code> ➔ 3 (binario 00011)</p>
+                                <p>3. In <code>D2</code> (Valore Decimale Byte 1): <code>=192 + C2</code> ➔ 195 (Hex C3)</p>
+                                <p>4. In <code>E2</code> (Valore Decimale Byte 2): <code>=128 + B2</code> ➔ 160 (Hex A0)</p>
+                                <p class="text-emerald-800 font-bold font-sans mt-2">5. CONTROPROVA HEX in F2: <code>=CONCATENA(DEC.HEX(D2); " "; DEC.HEX(E2))</code> ➔ "C3 A0" ✓</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= MODULO 9 ================= -->
+            <section id="m9" class="scroll-mt-20 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="border-b border-slate-200 bg-slate-50 p-4 sm:p-6 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Modulo 09</span>
+                        <h2 class="text-xl font-bold text-slate-800">Codifica Immagini Raster, RGB e Bitmap (.bmp)</h2>
+                    </div>
+                    <div class="text-3xl text-brand-600"><i class="fa-solid fa-image"></i></div>
+                </div>
+
+                <div class="p-4 sm:p-6 space-y-8">
+                    <div class="space-y-3">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-brand-600"></i> 1. Spiegazione Teorica
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Un'immagine **Raster (Bitmap)** è una griglia di pixel di dimensione $\text{Larghezza} \times \text{Altezza}$.
+                            Nella codifica a colori True Color **RGB (24 bit)**, ogni pixel impiega 3 Byte (8 bit per il Rosso, 8 per il Verde, 8 per il Blu).
+                            La dimensione grezza dei dati immagine è data dalla formula:
+                            $$\text{Dimensione (Byte)} = \text{Larghezza} \times \text{Altezza} \times \left(\frac{\text{Profondità di Colore (bit)}}{8}\right) + \text{Header}$$
+                        </p>
+                    </div>
+
+                    <!-- Demo JS -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 space-y-4">
+                        <h3 class="text-md font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-laptop-code text-brand-600"></i> 2. Demo Interattiva: Mini Pixel Grid & Color Inspector
+                        </h3>
+                        <div class="flex flex-col sm:flex-row gap-4 items-center">
+                            <div id="m9-grid" class="grid grid-cols-4 gap-1 bg-slate-300 p-2 rounded-lg">
+                                <!-- JS Popola 16 pixel -->
+                            </div>
+                            <div class="space-y-2 text-xs font-mono bg-white p-3 border rounded-lg flex-1">
+                                <div>Color Picker Pixel Selezionato: <input type="color" id="m9-color-picker" value="#3b82f6" class="ml-2 cursor-pointer"></div>
+                                <div id="m9-pixel-info" class="text-slate-700">Clicca su un pixel per verificarne i valori RGB e la codifica Hex.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Esercizi -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-ruler text-brand-600"></i> 3. Esercizi Guidati
+                        </h3>
+
+                        <div class="border border-amber-200 bg-amber-50/50 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-amber-800 text-sm"><i class="fa-solid fa-file-lines mr-1.5"></i> Esercizio 1 (Su Carta) 📝</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Calcola la dimensione non compressa in **Megabyte (MB)** di un'immagine Full HD ($1920 \times 1080$ pixel) con profondità di colore a 24 bit (RGB True Color).
+                            </p>
+                            <button onclick="toggleSolution('sol-m9-carta')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Soluzione e Guida Passo-Passo
+                            </button>
+                            <div id="sol-m9-carta" class="hidden mt-4 pt-3 border-t border-amber-200 text-xs text-slate-800 space-y-2">
+                                <p>1. Numero di pixel totali: $1920 \times 1080 = 2.073.600 \text{ pixel}$.</p>
+                                <p>2. Byte per pixel: $24 \text{ bit} / 8 = 3 \text{ Byte/pixel}$.</p>
+                                <p>3. Dimensione in Byte: $2.073.600 \times 3 = 6.220.800 \text{ Byte}$.</p>
+                                <p>4. Conversione in Kilobyte: $6.220.800 / 1024 = 6075 \text{ KB}$.</p>
+                                <p>5. Conversione in Megabyte: $6075 / 1024 \approx$ <strong>5.93 MB</strong>.</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-emerald-200 bg-emerald-50/40 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-emerald-900 text-sm"><i class="fa-solid fa-file-excel mr-1.5"></i> Esercizio 2 (Su Excel) 📊</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Costruisci un foglio di calcolo Excel in cui inserire nei parametri di input: Larghezza in <code>A2</code> (1920), Altezza in <code>B2</code> (1080), Profondità di colore bpp in <code>C2</code> (24) e Dimensione Header BMP in <code>D2</code> (54 Byte). Utilizza le formule per calcolare i byte dei dati, l'eventuale padding di riga e le conversioni in KB e MB.
+                            </p>
+                            <button onclick="toggleSolution('sol-m9-excel')" class="text-xs bg-excel hover:bg-emerald-800 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Guida Passo-Passo Excel
+                            </button>
+                            <div id="sol-m8-excel-2" class="hidden mt-4 pt-3 border-t border-emerald-200 text-xs text-slate-800 space-y-2 font-mono">
+                                <p>1. Cella <code>E2</code> (Totale Pixel): <code>=A2 * B2</code> ➔ 2.073.600</p>
+                                <p>2. Cella <code>F2</code> (Byte Dati Immagine): <code>=E2 * (C2 / 8)</code> ➔ 6.220.800</p>
+                                <p>3. Cella <code>G2</code> (Byte Totali File con Header): <code>=F2 + D2</code> ➔ 6.220.854</p>
+                                <p>4. Cella <code>H2</code> (Dimensione in KB): <code>=G2 / 1024</code> ➔ 6075,05 KB</p>
+                                <p class="text-emerald-800 font-bold font-sans mt-2">5. Cella <code>I2</code> (Dimensione in MB): <code>=H2 / 1024</code> ➔ 5.93 MB ✓</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= MODULO 10 ================= -->
+            <section id="m10" class="scroll-mt-20 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="border-b border-slate-200 bg-slate-50 p-4 sm:p-6 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Modulo 10</span>
+                        <h2 class="text-xl font-bold text-slate-800">Codifica Audio, Video e Compressione Dati</h2>
+                    </div>
+                    <div class="text-3xl text-brand-600"><i class="fa-solid fa-file-audio"></i></div>
+                </div>
+
+                <div class="p-4 sm:p-6 space-y-8">
+                    <div class="space-y-3">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-brand-600"></i> 1. Spiegazione Teorica
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            La digitalizzazione dell'audio richiede <strong>Campionamento</strong> (frequenza $F_s$ Hz) e <strong>Quantizzazione</strong> (risoluzione $N$ bit).
+                            Il **Bitrate Audio Uncompressed** è calcolato come:
+                            $$\text{Bitrate (bps)} = F_s \times \text{Bit Depth} \times \text{Canali}$$
+                            La dimensione di un file audio di durata $t$ secondi è:
+                            $$\text{Dimensione (Byte)} = \frac{\text{Bitrate} \times t}{8}$$
+                            I fattori di compressione (es. MP3, AAC, H.264) riducono significativamente questo spazio eliminando la ridondanza percettiva.
+                        </p>
+                    </div>
+
+                    <!-- Demo JS -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 sm:p-5 space-y-4">
+                        <h3 class="text-md font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-laptop-code text-brand-600"></i> 2. Demo Interattiva: Audio File Estimator
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
+                            <div>
+                                <label class="block font-semibold mb-1">Freq. Campionamento:</label>
+                                <select id="m10-freq" class="w-full p-2 border rounded">
+                                    <option value="44100">44.1 kHz (CD Quality)</option>
+                                    <option value="48000">48.0 kHz (Studio/DVD)</option>
+                                    <option value="96000">96.0 kHz (Hi-Res)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block font-semibold mb-1">Quantizzazione:</label>
+                                <select id="m10-bits" class="w-full p-2 border rounded">
+                                    <option value="16">16 bit</option>
+                                    <option value="24">24 bit</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block font-semibold mb-1">Canali:</label>
+                                <select id="m10-channels" class="w-full p-2 border rounded">
+                                    <option value="2">2 (Stereo)</option>
+                                    <option value="1">1 (Mono)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block font-semibold mb-1">Durata (sec):</label>
+                                <input type="number" id="m10-duration" value="180" class="w-full p-2 border rounded">
+                            </div>
+                        </div>
+                        <div id="m10-audio-res" class="bg-slate-900 text-emerald-400 p-3 rounded-lg font-mono text-xs font-bold">
+                            <!-- JS -->
+                        </div>
+                    </div>
+
+                    <!-- Esercizi -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-ruler text-brand-600"></i> 3. Esercizi Guidati
+                        </h3>
+
+                        <div class="border border-amber-200 bg-amber-50/50 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-amber-800 text-sm"><i class="fa-solid fa-file-lines mr-1.5"></i> Esercizio 1 (Su Carta) 📝</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Calcola la dimensione non compressa di un brano audio Stereo di durata 3 minuti ($180$ secondi), campionata alla frequenza di $44.100 \text{ Hz}$ con quantizzazione a $16 \text{ bit}$.
+                            </p>
+                            <button onclick="toggleSolution('sol-m10-carta')" class="text-xs bg-amber-600 hover:bg-amber-700 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Soluzione e Guida Passo-Passo
+                            </button>
+                            <div id="sol-m10-carta" class="hidden mt-4 pt-3 border-t border-amber-200 text-xs text-slate-800 space-y-2">
+                                <p>1. Bitrate = $44.100 \times 16 \times 2 = 1.411.200 \text{ bps} = 1411.2 \text{ kbps}$.</p>
+                                <p>2. Bit totali in 180 s = $1.411.200 \times 180 = 254.016.000 \text{ bit}$.</p>
+                                <p>3. Byte totali = $254.016.000 / 8 = 31.752.000 \text{ Byte}$.</p>
+                                <p>4. Conversione in MB: $31.752.000 / (1024 \times 1024) \approx$ <strong>30.28 MB</strong>.</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-emerald-200 bg-emerald-50/40 rounded-xl p-4 sm:p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-emerald-900 text-sm"><i class="fa-solid fa-file-excel mr-1.5"></i> Esercizio 2 (Su Excel) 📊</span>
+                            </div>
+                            <p class="text-sm text-slate-700 mb-3">
+                                Imposta in Excel le variabili: $F_s$ in <code>A2</code> (44100), Bit Depth in <code>B2</code> (16), Canali in <code>C2</code> (2) e Durata secondi in <code>D2</code> (180). Calcola il Bitrate in kbps e la dimensione finale in MB.
+                            </p>
+                            <button onclick="toggleSolution('sol-m10-excel')" class="text-xs bg-excel hover:bg-emerald-800 text-white font-medium px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-eye"></i> Mostra Guida Passo-Passo Excel
+                            </button>
+                            <div id="sol-m10-excel" class="hidden mt-4 pt-3 border-t border-emerald-200 text-xs text-slate-800 space-y-2 font-mono">
+                                <p>1. Cella <code>E2</code> (Bitrate bps): <code>=A2 * B2 * C2</code> ➔ 1.411.200 bps</p>
+                                <p>2. Cella <code>F2</code> (Bitrate kbps): <code>=E2 / 1000</code> ➔ 1411.2 kbps</p>
+                                <p>3. Cella <code>G2</code> (Byte totali): <code>=(E2 * D2) / 8</code> ➔ 31.752.000 Byte</p>
+                                <p class="text-emerald-800 font-bold font-sans mt-2">4. Cella <code>H2</code> (Dimensione in MB): <code>=G2 / (1024*1024)</code> ➔ 30.28 MB ✓</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p>Guida ed Eserciziario Interattivo di Codifica Dati - Dipartimento di Informatica / TPSI</p>
+            <p class="text-slate-500">Sviluppato per gli studenti del secondo biennio dell'Istituto Tecnico Tecnologico.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Toggle Solution Helper Function
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+
+        // Mobile Sidebar Navigation Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('close-sidebar-btn');
+        const sidebar = document.getElementById('sidebar');
+
+        if (mobileBtn && sidebar) {
+            mobileBtn.addEventListener('click', () => {
+                sidebar.classList.remove('-translate-x-full');
+            });
+        }
+        if (closeBtn && sidebar) {
+            closeBtn.addEventListener('click', () => {
+                sidebar.classList.add('-translate-x-full');
+            });
+        }
+
+        // Smooth Scroll Active Link Highlighter
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebarLinks.forEach(l => l.classList.remove('sidebar-item-active'));
+                link.classList.add('sidebar-item-active');
+                if (window.innerWidth < 768) {
+                    sidebar.classList.add('-translate-x-full');
+                }
+            });
+        });
+
+        // ------------------ MODULO 1 DEMO ------------------
+        const m1Input = document.getElementById('m1-input-dec');
+        const m1OutputBin = document.getElementById('m1-output-bin');
+        const m1Steps = document.getElementById('m1-steps-demo');
+
+        function updateM1() {
+            let val = parseInt(m1Input.value) || 0;
+            val = Math.max(0, Math.min(255, val));
+            let curr = val;
+            let binStr = "";
+            let stepsHtml = "";
+
+            if (val === 0) {
+                binStr = "00000000";
+                stepsHtml = "<div>0 / 2 = 0 con resto 0</div>";
+            } else {
+                let temp = val;
+                let bits = [];
+                while (temp > 0) {
+                    let q = Math.floor(temp / 2);
+                    let r = temp % 2;
+                    stepsHtml += `<div>${temp} / 2 = <strong>${q}</strong> (Resto: <span class="text-emerald-600 font-bold">${r}</span>)</div>`;
+                    bits.push(r);
+                    temp = q;
+                }
+                binStr = bits.reverse().join('').padStart(8, '0');
+            }
+
+            m1OutputBin.innerText = binStr;
+            m1Steps.innerHTML = stepsHtml;
+        }
+        if (m1Input) m1Input.addEventListener('input', updateM1);
+
+        // ------------------ MODULO 2 DEMO ------------------
+        const m2Input = document.getElementById('m2-input-bin');
+        const m2Display = document.getElementById('m2-nibble-display');
+
+        function updateM2() {
+            let clean = m2Input.value.replace(/[^01]/g, '');
+            if (clean.length === 0) clean = "0";
+            while (clean.length % 4 !== 0) clean = "0" + clean;
+
+            let html = "";
+            for (let i = 0; i < clean.length; i += 4) {
+                let nibble = clean.substr(i, 4);
+                let dec = parseInt(nibble, 2);
+                let hex = dec.toString(16).toUpperCase();
+                html += `
+                    <div class="bg-white p-2.5 rounded-lg border border-slate-300 text-center font-mono">
+                        <div class="text-slate-400 text-[10px]">Nibble</div>
+                        <div class="text-brand-600 font-bold">${nibble}</div>
+                        <div class="text-xs text-slate-600 mt-1">Dec: ${dec} ➔ <strong>Hex: ${hex}</strong></div>
+                    </div>
+                `;
+            }
+            m2Display.innerHTML = html;
+        }
+        if (m2Input) m2Input.addEventListener('input', updateM2);
+
+        // ------------------ MODULO 3 DEMO ------------------
+        const m3Input = document.getElementById('m3-input-num');
+        const m3Sign = document.getElementById('m3-bit-sign');
+        const m3Mod = document.getElementById('m3-bit-mod');
+
+        function updateM3() {
+            let val = parseInt(m3Input.value) || 0;
+            let signBit = val < 0 ? "1" : "0";
+            let absVal = Math.abs(val);
+            let modBits = absVal.toString(2).padStart(7, '0');
+
+            m3Sign.innerText = signBit;
+            m3Mod.innerText = modBits;
+        }
+        if (m3Input) m3Input.addEventListener('input', updateM3);
+
+        // ------------------ MODULO 4 DEMO ------------------
+        const m4Input = document.getElementById('m4-input-val');
+        const m4Output = document.getElementById('m4-c2-output');
+
+        function updateM4() {
+            let val = parseInt(m4Input.value) || 0;
+            let binPos = Math.abs(val).toString(2).padStart(8, '0');
+            
+            let invStr = "";
+            for (let c of binPos) invStr += (c === '0' ? '1' : '0');
+
+            let c2Val = (val < 0) ? (parseInt(invStr, 2) + 1).toString(2).padStart(8, '0') : binPos;
+
+            m4Output.innerHTML = `
+                <div>Valore Positivo (+${Math.abs(val)}): <span class="font-bold text-slate-700">${binPos}</span></div>
+                <div>Inversione Bit (C1): <span class="font-bold text-amber-600">${invStr}</span></div>
+                <div class="text-emerald-700 font-bold mt-1">Risultato C2 (${val}): ${c2Val}</div>
+            `;
+        }
+        if (m4Input) m4Input.addEventListener('input', updateM4);
+
+        // ------------------ MODULO 5 DEMO ------------------
+        const m5X = document.getElementById('m5-x');
+        const m5K = document.getElementById('m5-k');
+        const m5Res = document.getElementById('m5-res');
+
+        function updateM5() {
+            let x = parseInt(m5X.value) || 0;
+            let k = parseInt(m5K.value) || 127;
+            let e = x + k;
+            let bin = e >= 0 ? e.toString(2).padStart(8, '0') : "Fuori Range";
+
+            m5Res.innerText = `${e} ➔ ${bin}`;
+        }
+        if (m5X && m5K) {
+            m5X.addEventListener('input', updateM5);
+            m5K.addEventListener('input', updateM5);
+        }
+
+        // ------------------ MODULO 6 DEMO ------------------
+        const m6Input = document.getElementById('m6-input-float');
+        const m6Breakdown = document.getElementById('m6-ieee-breakdown');
+
+        function updateM6() {
+            let num = parseFloat(m6Input.value) || 0;
+            let buffer = new ArrayBuffer(4);
+            let view = new DataView(buffer);
+            view.setFloat32(0, num, false);
+
+            let bits = "";
+            for (let i = 0; i < 4; i++) {
+                bits += view.getUint8(i).toString(2).padStart(8, '0');
+            }
+
+            let s = bits.charAt(0);
+            let e = bits.substr(1, 8);
+            let m = bits.substr(9, 23);
+
+            m6Breakdown.innerHTML = `
+                <div>Segno (1 Bit): <span class="text-red-400 font-bold">${s}</span></div>
+                <div>Esponente (8 Bit): <span class="text-blue-400 font-bold">${e}</span> (Dec: ${parseInt(e, 2)})</div>
+                <div>Mantissa (23 Bit): <span class="text-emerald-400 font-bold">${m.substr(0, 8)}...</span></div>
+                <div class="text-amber-300 font-bold mt-1">Word Hex: 0x${parseInt(bits, 2).toString(16).toUpperCase()}</div>
+            `;
+        }
+        if (m6Input) m6Input.addEventListener('input', updateM6);
+
+        // ------------------ MODULO 7 DEMO ------------------
+        const m7Input = document.getElementById('m7-input-text');
+        const m7Table = document.getElementById('m7-ascii-table');
+
+        function updateM7() {
+            let txt = m7Input.value || "";
+            let html = `
+                <table class="w-full text-left font-mono text-xs border border-slate-200 mt-2 bg-white">
+                    <thead class="bg-slate-100">
+                        <tr>
+                            <th class="p-1.5 border-r">Char</th>
+                            <th class="p-1.5 border-r">ASCII Dec</th>
+                            <th class="p-1.5 border-r">Hex</th>
+                            <th class="p-1.5">Binario (8 Bit)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            for (let c of txt) {
+                let code = c.charCodeAt(0);
+                html += `
+                    <tr class="border-t">
+                        <td class="p-1.5 border-r font-bold text-brand-600">'${c}'</td>
+                        <td class="p-1.5 border-r">${code}</td>
+                        <td class="p-1.5 border-r">0x${code.toString(16).toUpperCase()}</td>
+                        <td class="p-1.5 font-bold text-emerald-700">${code.toString(2).padStart(8, '0')}</td>
+                    </tr>
+                `;
+            }
+            html += `</tbody></table>`;
+            m7Table.innerHTML = html;
+        }
+        if (m7Input) m7Input.addEventListener('input', updateM7);
+
+        // ------------------ MODULO 8 DEMO ------------------
+        const m8Char = document.getElementById('m8-char');
+        const m8Bytes = document.getElementById('m8-utf8-bytes');
+
+        function updateM8() {
+            let str = m8Char.value || 'a';
+            let code = str.charCodeAt(0);
+            let encoder = new TextEncoder();
+            let bytes = encoder.encode(str);
+
+            let hexArr = [];
+            let binArr = [];
+            bytes.forEach(b => {
+                hexArr.push(b.toString(16).toUpperCase().padStart(2, '0'));
+                binArr.push(b.toString(2).padStart(8, '0'));
+            });
+
+            m8Bytes.innerHTML = `
+                <div>Code Point Unicode: <span class="font-bold text-white">U+${code.toString(16).toUpperCase().padStart(4, '0')}</span></div>
+                <div>Lunghezza Byte UTF-8: <strong>${bytes.length} Byte</strong></div>
+                <div>Hex: <span class="text-emerald-400 font-bold">${hexArr.join(' ')}</span></div>
+                <div>Binario: <span class="text-amber-300 font-bold">${binArr.join(' ')}</span></div>
+            `;
+        }
+        if (m8Char) m8Char.addEventListener('input', updateM8);
+
+        // ------------------ MODULO 9 DEMO ------------------
+        const m9Grid = document.getElementById('m9-grid');
+        const m9Picker = document.getElementById('m9-color-picker');
+        const m9Info = document.getElementById('m9-pixel-info');
+
+        if (m9Grid) {
+            let html = "";
+            for (let i = 0; i < 16; i++) {
+                html += `<div class="pixel-box w-10 h-10 bg-blue-500 rounded cursor-pointer border-2 border-white hover:scale-105 transition-transform" data-index="${i}"></div>`;
+            }
+            m9Grid.innerHTML = html;
+
+            const pixels = m9Grid.querySelectorAll('.pixel-box');
+            pixels.forEach(px => {
+                px.addEventListener('click', () => {
+                    px.style.backgroundColor = m9Picker.value;
+                    let hex = m9Picker.value;
+                    let r = parseInt(hex.substr(1,2), 16);
+                    let g = parseInt(hex.substr(3,2), 16);
+                    let b = parseInt(hex.substr(5,2), 16);
+
+                    m9Info.innerHTML = `
+                        <div>Pixel #${parseInt(px.dataset.index)+1} Color: <span class="font-bold" style="color:${hex}">${hex.toUpperCase()}</span></div>
+                        <div>RGB Decimale: <strong>R:${r}, G:${g}, B:${b}</strong></div>
+                        <div>Binario 24 Bit: <span class="text-xs text-slate-600">${r.toString(2).padStart(8,'0')} ${g.toString(2).padStart(8,'0')} ${b.toString(2).padStart(8,'0')}</span></div>
+                    `;
+                });
+            });
+        }
+
+        // ------------------ MODULO 10 DEMO ------------------
+        const m10Freq = document.getElementById('m10-freq');
+        const m10Bits = document.getElementById('m10-bits');
+        const m10Chan = document.getElementById('m10-channels');
+        const m10Dur = document.getElementById('m10-duration');
+        const m10Res = document.getElementById('m10-audio-res');
+
+        function updateM10() {
+            let f = parseInt(m10Freq.value);
+            let b = parseInt(m10Bits.value);
+            let c = parseInt(m10Chan.value);
+            let d = parseInt(m10Dur.value) || 0;
+
+            let bitrate = f * b * c;
+            let totalBytes = (bitrate * d) / 8;
+            let mb = totalBytes / (1024 * 1024);
+
+            m10Res.innerHTML = `
+                <div>Bitrate Non Compresso: ${(bitrate/1000).toFixed(1)} kbps</div>
+                <div>Dimensione Traccia Audio: <span class="text-white text-base">${mb.toFixed(2)} MB</span></div>
+            `;
+        }
+        if (m10Freq && m10Bits && m10Chan && m10Dur) {
+            m10Freq.addEventListener('change', updateM10);
+            m10Bits.addEventListener('change', updateM10);
+            m10Chan.addEventListener('change', updateM10);
+            m10Dur.addEventListener('input', updateM10);
+        }
+
+        // Init All Demos on Page Load
+        window.onload = function() {
+            if (m1Input) updateM1();
+            if (m2Input) updateM2();
+            if (m3Input) updateM3();
+            if (m4Input) updateM4();
+            if (m5X) updateM5();
+            if (m6Input) updateM6();
+            if (m7Input) updateM7();
+            if (m8Char) updateM8();
+            if (m10Freq) updateM10();
+        };
+    </script>
+</body>
+</html>
